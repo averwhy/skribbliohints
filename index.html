@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <title>skribbl.io hints - Search the default word list used by skribbl.io</title>
+    <title>skribbl.io hints - Search words used by skribbl.io</title>
     <meta name="description" content="The most complete public word list.  Search the list by entering the hint that skribbl.io gives you, for example: _____b____">
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,8 +44,6 @@
       
       const LANGUAGE_TO_PATH_MAP = {
         "English": "words.json",
-        "German": "German.json",
-        "Spanish": "Spanish.json"
       };
 
       const NAME_MAP = {
@@ -174,25 +172,12 @@
         const re = new RegExp('^' + skribblioHint.split('').map(char => char === '_' ? '[a-zA-ZÁ-ü0-9./]' : (char === '.' ? '\\.' : char)).join('') + '$');
         return a => skribblioHint === '' || re.test(a);
       }
-      // non-ascii letters:
-      //  German: äöüÄÖÜß
-      //  Spanish: upper and lower vowels with accent, upper and lower ñ, and ü
-      
       
       function searchBoxOnInput() {
         const input = this.value;
         let filters = [];
         filters.push(getFilterFromSkribblioHint(input));
         document.querySelector('#wordlist').innerHTML = getTableInnerHTML(words, sorts, filters, document.getElementById('colorCheckbox').checked);
-      }
-      
-      
-      function colorCheckboxOnClick() {
-        searchBoxOnInput.bind(document.getElementById('searchBox'))();
-        document.getElementById('colorKey').style.display = this.checked ? "initial" : "none";
-      }
-      function showGrapherCheckboxOnClick() {
-        document.getElementById('grapher').style.display = this.checked ? "initial" : "none";
       }
       function getListOfWordAttributes() {
         const list_of_word_attributes = [];
@@ -342,45 +327,12 @@
           Below is a list of words that skribbl.io uses in public games.<br>
           Enter the hint provided by skribbl.io (e.g. <span style='letter-spacing: 2px;'>_oa__</span>) to search the list.
         </p>
-        <form>
-          <input type='checkbox' id='colorCheckbox' name='colorCheckbox' onClick='colorCheckboxOnClick.bind(this)()'>
-          <label for='colorCheckbox'>Show difficulty of word using color</label>
-          <br>
-          <div id='colorKey'>
-            <canvas id='colorCanvas' width='200' height='40'></canvas><br>
-            <span style='font-size: 12px'>Colors closer to white indicate low confidence.  Perfect white indicates no data.</span>
-            <br>
-          </div>
-          <input type='checkbox' id='showGrapherCheckbox' name='showGrapherCheckbox' onClick='showGrapherCheckboxOnClick.bind(this)()'>
-          <label for='showGrapherCheckbox'>Show data grapher</label>
-          <div style='float: right;'>
-            Language: <select id="languageSelect">
-              <option value="English">English</option>
-              <option value="German">German</option>
-              <option value="Spanish">Spanish</option>
-            </select>
-          </div>
-          <br>
-          <div id='grapher'>
-            X Axis
-            <select id='xAxisSelect' onchange='showGraph()'>
-              <!-- options are added by JavaScript code -->
-            </select>
-            <br>
-            Y Axis
-            <select id='yAxisSelect' onchange='showGraph()'>
-              <!-- options are added by JavaScript code -->
-            </select>
-            <div id='graphDiv'></div>
-            <div id='rDiv'></div>
-          </div>
-        </form>
       </div>
       <form>
         <input type='text' id='searchBox' oninput='searchBoxOnInput.bind(this)()' placeholder='Search by blanks, for example _____b____' style="width: 100%; letter-spacing: 2px; margin: 3px;">
       </form>
       <div id='wordlist' style="margin: 3px;">
-         Retrieving word list.  This may take up to 30 seconds.
+         Retrieving word list.  This may take up to 7 trillion seconds.
       </div>
     </div>
   </body>
